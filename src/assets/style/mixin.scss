@@ -1,0 +1,50 @@
+// ----------------------------------------------------------------------------------  主题  -----------------------------------------------------------------------------------
+// 默认
+@mixin theme-def {
+  // router-link
+  .router-active { color: $color-def;
+    span { color: $color-info; background: $color-linear-def }
+  }
+  // swipe-indicator-color
+  .van-swipe__indicator--active { background-color: $color-def!important }
+
+  .tabs>li>span { background: $color-linear-def }
+}
+
+// 经典红
+@mixin theme-red {
+  // router-link
+  .router-active { color: $color-danger;
+    span { color: $color-info; background: $color-linear-danger }
+  }
+  // swipe-indicator-color
+  .van-swipe__indicator--active { background-color: $color-danger!important }
+
+  .tabs>li>span { background: $color-linear-danger }
+
+  .search-wrap {
+    .search-var { background: $color-bg-danger; color: $color-normal;
+      svg { color: $color-normal }
+      input { background: #DB4D43 }
+      ::input-placeholder { color: rgba(255, 255, 255, .75); }
+      ::-webkit-input-placeholder { color: rgba(255, 255, 255, .75); }
+    }
+  }
+}
+
+// 响应式
+@mixin respond-to($name) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $name) {
+      // Prints a media query based on the value
+      @media #{inspect(map-get($breakpoints, $name))} {
+          @content;
+      }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+      @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+          + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
