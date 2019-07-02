@@ -32,7 +32,7 @@
             <span><v-icon name='arrow-circle-down' :scale='1.4'></v-icon></span>下载
           </div>
           <div>
-            <span><v-icon name='regular/check-circle' :scale='1.4'></v-icon></span>多选
+            <span><v-icon name='regular/check-circle' :scale='1.4'></v-icon></span>测试
           </div>
         </div>
         <div ref="listWrap" class="music-list" :class="{'lock-content' : lock}">
