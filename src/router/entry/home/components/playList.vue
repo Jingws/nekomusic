@@ -76,8 +76,7 @@ export default {
   data () {
     return {
       coverHeight: '',
-      lock: false,
-      songList: []
+      lock: false
     }
   },
 
@@ -123,13 +122,14 @@ export default {
         { id: this.playList.data.playList.id }
       ).then(res => {
         const r = res.data
-        this.songList = r.result.tracks
+        // this.songList = r.result.tracks
+        this.$store.commit('SET_SONGLIST', r.result.tracks)
       })
     }
   },
 
   computed: {
-    ...mapState(['playList'])
+    ...mapState(['playList', 'songList'])
   },
 
   components: {

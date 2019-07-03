@@ -22,7 +22,7 @@ const store = new Vuex.Store({
     // 首页 popup 窗口
     Popups: {
       commend: false,
-      songList: false,
+      mySongList: false,
       poll: false,
       radio: false
     },
@@ -45,7 +45,10 @@ const store = new Vuex.Store({
     playList: {
       show: false,
       data: {}
-    }
+    },
+
+    // 歌单列表
+    songList: []
   },
 
   getters: {
@@ -75,7 +78,7 @@ const store = new Vuex.Store({
       if(data === 'commend') {
         state.Popups.commend = !state.Popups.commend
       } else if(data === 'songList') {
-        state.Popups.songList = !state.Popups.songList
+        state.Popups.mySongList = !state.Popups.mySongList
       } else if(data === 'poll') {
         state.Popups.poll = !state.Popups.poll
       } else if(data === 'radio') {
@@ -87,9 +90,13 @@ const store = new Vuex.Store({
       state.playList = data
     },
 
+    SET_SONGLIST(state, data) {
+      state.songList = data
+    },
+
     OFF_POPUPS(state) {
       state.Popups.commend = false
-      state.Popups.songList = false
+      state.Popups.mySongList = false
       state.Popups.poll = false
       state.Popups.radio = false
       state.playList.show = false
