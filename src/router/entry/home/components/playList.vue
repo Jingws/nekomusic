@@ -118,11 +118,11 @@ export default {
     },
 
     loadDetail() {
+      this.$store.dispatch('cleanSongList')
       playListDetailApi.get(
         { id: this.playList.data.playList.id }
       ).then(res => {
         const r = res.data
-        // this.songList = r.result.tracks
         this.$store.commit('SET_SONGLIST', r.result.tracks)
       })
     }

@@ -16,7 +16,8 @@ const store = new Vuex.Store({
     // 播放器相关
     player: {
       state: false,
-      url: ''
+      url: '',
+      id: null
     },
 
     // 首页 popup 窗口
@@ -131,7 +132,8 @@ const store = new Vuex.Store({
     openPlayer({commit, state}) {
       const data = {
         state: true,
-        url: state.player.url
+        url: state.player.url,
+        id: state.player.id
       }
       commit('SET_PLAYER', data)
     },
@@ -139,7 +141,8 @@ const store = new Vuex.Store({
     startPlayer({commit}, id) {
       const data = {
         state: true,
-        url: 'http://music.163.com/song/media/outer/url?id=' + id + '.mp3'
+        url: 'http://music.163.com/song/media/outer/url?id=' + id + '.mp3',
+        id: id
       }
       commit('SET_PLAYER', data)
     },
@@ -147,7 +150,8 @@ const store = new Vuex.Store({
     closePlayer({commit, state}) {
       const data = {
         state: false,
-        url: state.player.url
+        url: state.player.url,
+        id: state.player.id
       }
       commit('SET_PLAYER', data)
     },
@@ -211,6 +215,11 @@ const store = new Vuex.Store({
           data.data = r.data
           commit('SET_PLAYLIST', data)
         })
+    },
+
+    cleanSongList({commit}) {
+      let data = []
+      commit('SET_SONGLIST', data)
     }
   }
 })
