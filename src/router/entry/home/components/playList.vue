@@ -48,7 +48,7 @@
             <img src="@/assets/img/loading.gif" alt=""><br> 加载中...
           </p>
           <ul>
-            <li v-for="(item, index) of songList" :key="index">
+            <li v-for="(item, index) of songList" :key="index" @click="() => $player.start(item.id)">
               <span>{{index + 1}}</span>
               <div>
                 <div>

@@ -15,7 +15,8 @@ const store = new Vuex.Store({
 
     // 播放器相关
     player: {
-      state: false
+      state: false,
+      url: ''
     },
 
     // 首页 popup 窗口
@@ -120,16 +121,26 @@ const store = new Vuex.Store({
       dispatch('loadRcmdMusicList')
     },
 
-    openPlayer({commit}) {
+    openPlayer({commit, state}) {
       const data = {
-        state: true
+        state: true,
+        url: state.player.url
       }
       commit('SET_PLAYER', data)
     },
 
-    closePlayer({commit}) {
+    startPlayer({commit}, id) {
       const data = {
-        state: false
+        state: true,
+        url: 'http://music.163.com/song/media/outer/url?id=' + id + '.mp3'
+      }
+      commit('SET_PLAYER', data)
+    },
+
+    closePlayer({commit, state}) {
+      const data = {
+        state: false,
+        url: state.player.url
       }
       commit('SET_PLAYER', data)
     },

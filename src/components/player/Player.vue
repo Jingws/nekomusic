@@ -23,7 +23,7 @@
           <li><v-icon name='ellipsis-v' :scale="1.3"></v-icon></li>
         </ul>
 
-        <audio ref="audio" src="http://m10.music.126.net/20190626161136/684c3f37ca8f3c965e4d13cb9c0296f1/ymusic/1fdd/1098/ccec/e687e8ea04b4e48e83c2de161e46e29f.mp3"></audio>
+        <audio ref="audio" :src="player.url"></audio>
 
         <div class="progress-bar">
           <span class="time-ctrl layout-display">{{palyTime | formatTime}}</span>
@@ -121,6 +121,7 @@ export default {
     getPlayer(v) {
       let _this = this
       if (v === true) {
+        console.log(_this.player)
         setTimeout(() => {
           _this.totalTime = _this.myAudio.duration
           // 结束时候
