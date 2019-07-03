@@ -3,7 +3,7 @@
     <search-content @hidePage='hidePage($event)' :icon='searchIcon' />
     <pull-refresh :isLoading='isLoading' @onRefresh='onRefresh'>
       <div class="home-wrap">
-        <swipe :list='imgList' />
+        <swipe :list='banner.list' />
 
         <ul class="tabs layout-display">
           <li class="layout-column" @click="openPopup('commend')">
@@ -72,17 +72,7 @@ export default {
     return {
       showPage: true,
       searchIcon: 'microphone-alt',
-      isLoading: false,
-      imgList: [
-        // require('../../../assets/img/banner_0.jpg'),
-        // require('../../../assets/img/banner_1.jpg'),
-        // require('../../../assets/img/banner_2.jpg'),
-        // require('../../../assets/img/banner_3.png'),
-        // require('../../../assets/img/banner_4.jpg'),
-        // require('../../../assets/img/banner_5.jpg'),
-        // require('../../../assets/img/banner_6.jpg'),
-        // require('../../../assets/img/banner_7.png')
-      ]
+      isLoading: false
     }
   },
 
@@ -91,11 +81,6 @@ export default {
 
   activated() {
     this.$store.dispatch('loadEnterFace')
-  },
-
-  mounted() {
-    this.imgList.push(this.banner.content.image)
-    console.log(2313)
   },
 
   methods: {

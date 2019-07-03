@@ -31,10 +31,7 @@ const store = new Vuex.Store({
 
     banner: {
       last_updated: 0,
-      content: {
-        link: null,
-        image: null
-      }
+      list: []
     },
 
     // 推荐歌单
@@ -170,17 +167,9 @@ const store = new Vuex.Store({
       api.bannerApi.get().then(res => {
         const r = res.data
         let list = {
-          last_updated: 0,
-          content: {
-            link: null,
-            image: null
-          }
+          last_updated: 0
         }
-        if (r.code === 0) {
-          list.last_updated = new Date().getTime()
-          list.content.link = r.data.link
-          list.content.image = r.data.image
-        }
+        list.list = r.banners
         commit('SET_BANNER', list)
       })
     },
