@@ -6,8 +6,8 @@ export const Player = {
     store.dispatch('openPlayer')
   },
 
-  start(id) {
-    store.dispatch('startPlayer', id)
+  start(id, index) {
+    store.dispatch('startPlayer', {id, index})
   },
 
   close() {

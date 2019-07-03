@@ -17,7 +17,8 @@ const store = new Vuex.Store({
     player: {
       state: false,
       url: '',
-      id: null
+      id: null,
+      index: null
     },
 
     // 首页 popup 窗口
@@ -133,16 +134,18 @@ const store = new Vuex.Store({
       const data = {
         state: true,
         url: state.player.url,
-        id: state.player.id
+        id: state.player.id,
+        index: state.player.index
       }
       commit('SET_PLAYER', data)
     },
 
-    startPlayer({commit}, id) {
+    startPlayer({commit, state}, {id, index}) {
       const data = {
         state: true,
         url: 'http://music.163.com/song/media/outer/url?id=' + id + '.mp3',
-        id: id
+        id: id,
+        index: index
       }
       commit('SET_PLAYER', data)
     },
@@ -151,7 +154,8 @@ const store = new Vuex.Store({
       const data = {
         state: false,
         url: state.player.url,
-        id: state.player.id
+        id: state.player.id,
+        index: state.player.index
       }
       commit('SET_PLAYER', data)
     },
