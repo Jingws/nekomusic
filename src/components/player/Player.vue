@@ -1,17 +1,27 @@
 <template>
   <van-popup v-model="player.state" position='right' class="play-wrap" :overlay='false'>
-    <div class="player-content">
+    <canvas ref="canvas" id="canvas"></canvas>
+    <div class="player-content" :class="{'nobg' : player.id}">
       <div class="title">
         <span @click="() => $player.close()"><v-icon name='angle-left' :scale="1.3"></v-icon></span>
-        <div>
-          <p>歌曲名</p>
-          <p>歌手</p>
-        </div>
+        <template v-if="currentSong">
+          <div>
+            <p>{{currentSong.name}}</p>
+            <p>{{currentSong.artists[0].name}}</p>
+          </div>
+        </template>
+        <template v-else>
+          <div>
+            <p>歌名</p>
+            <p>歌手</p>
+          </div>
+        </template>
         <span><v-icon name='share-alt' :scale="1"></v-icon></span>
       </div>
 
       <div class="play-body">
-        <record :isPlay='isPlay' />
+        <record v-if="currentSong" :isPlay='isPlay' :picUrl='currentSong.album.blurPicUrl' />
+        <record v-else :isPlay='isPlay' />
       </div>
 
       <div class="player-control">
@@ -54,6 +64,8 @@
 import { mapState, mapGetters } from 'vuex'
 import { formatTime } from '../../filters/format-time'
 import record from './components/record'
+
+const StackBlur = require('stackblur-canvas')
 export default {
   data() {
     return {
@@ -113,6 +125,22 @@ export default {
         this.moveX = lineWidth - 5 + 'px'
       }
       this.lineCompleteWidth = this.$refs.dot.getBoundingClientRect().x - this.$refs.lineBase.getBoundingClientRect().x + 5
+    },
+
+    loadBg() {
+      const canvas = this.$refs.canvas
+      const ctx = canvas.getContext('2d')
+      canvas.width = document.documentElement.clientWidth
+      canvas.height = document.documentElement.clientHeight
+
+      // const img = this.$refs.cover
+      let img = new Image()
+      img.crossOrigin = ''
+      img.src = this.currentSong.album.blurPicUrl
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 60)
+      }
     }
   },
 
@@ -121,8 +149,10 @@ export default {
     getPlayer(v) {
       let _this = this
       if (v === true) {
-        console.log(_this.player)
         setTimeout(() => {
+          if (_this.player.id) {
+            _this.loadBg()
+          }
           _this.totalTime = _this.myAudio.duration
           // 结束时候
           _this.myAudio.onended = (e) => {
@@ -141,12 +171,18 @@ export default {
   },
 
   computed: {
-    ...mapState(['player']),
+    ...mapState(['player', 'songList']),
 
     ...mapGetters(['getPlayer']),
 
     myAudio() {
       return this.$refs.audio
+    },
+
+    currentSong() {
+      return this.songList.find(i => {
+        return i.id === this.player.id
+      })
     }
   },
 
@@ -163,7 +199,8 @@ export default {
 
 <style lang="scss">
   .play-wrap { position: fixed; width: 100%; height: 100%; background: $color-normal; overflow: hidden; }
-  .player-content { width: 100%; height: 100%; background: url('../../assets/img/bg_player.jpg')no-repeat; background-position: 50%; background-size: cover; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+  .player-content { width: 100%; height: 100%; background: url('../../assets/img/bg_player.jpg')no-repeat; background-position: 50%; background-size: cover; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: fixed; width: 100%; height: 100%; top: 0; left: 0;
+    &.nobg { width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: fixed; width: 100%; height: 100%; top: 0; left: 0; }
     >.title { width: 100%; padding: 4%; color: $color-normal; display: flex; justify-content: space-between; align-items: center;
       >span { display: inline-block; height: 100%; width: 15%;
         &:first-child { text-align: left }

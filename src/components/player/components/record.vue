@@ -8,7 +8,7 @@
         <li :style="{width: clientWidth + 'px'}">
           <div :class="{'imgRotate' : isPlay}">
             <p>
-              <img src="@/assets/img/demo.jpg" width="100%" alt="">
+              <img :src="picUrl" width="100%" alt="">
             </p>
           </div>
         </li>
@@ -23,6 +23,10 @@ export default {
     isPlay: {
       type: Boolean,
       default: false
+    },
+    picUrl: {
+      type: String,
+      default: 'http://p2.music.126.net/GoiTB6oG3vQWntnCjKRw0g==/109951163092691594.jpg'
     }
   },
 
