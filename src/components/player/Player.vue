@@ -139,7 +139,7 @@ export default {
       img.src = this.currentSong.album.blurPicUrl
       img.onload = () => {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-        StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 60)
+        StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 80)
       }
     }
   },
