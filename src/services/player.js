@@ -10,6 +10,17 @@ export const Player = {
     store.dispatch('startPlayer', {id, index})
   },
 
+  next() {
+    const currentSong = store.state.songList.find(i => {
+      return i.id === store.state.player.id
+    })
+    const item = store.state.songList.indexOf(currentSong)
+
+    const nextItem = Number(item + 1)
+    const nextId = Number(store.state.songList[nextItem].id)
+    this.start(nextId, nextItem)
+  },
+
   close() {
     store.dispatch('closePlayer')
   }

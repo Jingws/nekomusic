@@ -52,7 +52,7 @@
           <li><v-icon name='step-backward' :scale="1.3"></v-icon></li>
           <li v-if="!isPlay" @click="play"><v-icon name='regular/play-circle' :scale="2.8"></v-icon></li>
           <li v-else @click="pause"><v-icon name='regular/stop-circle' :scale="2.8"></v-icon></li>
-          <li><v-icon name='step-forward' :scale="1.3"></v-icon></li>
+          <li @click="next"><v-icon name='step-forward' :scale="1.3"></v-icon></li>
           <li><v-icon name='indent' :scale="1.3"></v-icon></li>
         </ul>
       </div>
@@ -141,6 +141,24 @@ export default {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
         StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 80)
       }
+    },
+
+    reset() {
+      this.isPlay = false
+      this.tranType = 'none'
+      this.moveX = 0 + 'px'
+      this.palyTime = 0
+      this.lineCompleteWidth = 0
+    },
+
+    next() {
+      this.$player.next()
+      this.reset()
+      setTimeout(() => {
+        this.totalTime = this.myAudio.duration
+        this.play()
+        this.loadBg()
+      }, 500)
     }
   },
 
@@ -156,13 +174,15 @@ export default {
           _this.totalTime = _this.myAudio.duration
           // 结束时候
           _this.myAudio.onended = (e) => {
-            _this.isPlay = false
-            _this.tranType = 'none'
-            _this.moveX = 0 + 'px'
-            _this.lineCompleteWidth = 0
-            _this.palyTime = 0
+            _this.reset()
+            _this.$player.next()
+            _this.loadBg()
+            setTimeout(() => {
+              _this.totalTime = _this.myAudio.duration
+              _this.play()
+            }, 500)
           }
-        }, 100)
+        }, 300)
       } else {
         // _this.playDur = 0
         // _this.moveX = _this.$refs.dot.getBoundingClientRect().x - _this.$refs.lineBase.getBoundingClientRect().x + 5
