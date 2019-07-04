@@ -21,6 +21,12 @@ export const Player = {
     } else if (type === 'prev') {
       nextItem = Number(item - 1)
     }
+
+    if (item === 0 && type === 'prev') {
+      nextItem = store.state.songList.length - 1
+    } else if (item === store.state.songList.length - 1 &&  type === 'next') {
+      nextItem = 0
+    }
     const nextId = Number(store.state.songList[nextItem].id)
     this.start(nextId, nextItem)
   },
