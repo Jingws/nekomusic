@@ -49,10 +49,10 @@
         
         <ul class="handle-ctrl">
           <li><v-icon name='random' :scale="1.3"></v-icon></li>
-          <li><v-icon name='step-backward' :scale="1.3"></v-icon></li>
+          <li @click="cut('prev')"><v-icon name='step-backward' :scale="1.3"></v-icon></li>
           <li v-if="!isPlay" @click="play"><v-icon name='regular/play-circle' :scale="2.8"></v-icon></li>
           <li v-else @click="pause"><v-icon name='regular/stop-circle' :scale="2.8"></v-icon></li>
-          <li @click="next"><v-icon name='step-forward' :scale="1.3"></v-icon></li>
+          <li @click="cut('next')"><v-icon name='step-forward' :scale="1.3"></v-icon></li>
           <li><v-icon name='indent' :scale="1.3"></v-icon></li>
         </ul>
       </div>
@@ -151,8 +151,8 @@ export default {
       this.lineCompleteWidth = 0
     },
 
-    next() {
-      this.$player.cut('next')
+    cut(type) {
+      this.$player.cut(type)
       this.reset()
       setTimeout(() => {
         this.totalTime = this.myAudio.duration
