@@ -1,5 +1,5 @@
 <template>
-  <div class="player-record">
+  <div class="player-record" :class="{'show' : show}">
     <div class="pole" :class="{'rotate' : !isPlay}">
       <img src="@/assets/img/pole.png" width="50%" alt="">
     </div>
@@ -27,6 +27,10 @@ export default {
     picUrl: {
       type: String,
       default: 'http://p2.music.126.net/GoiTB6oG3vQWntnCjKRw0g==/109951163092691594.jpg'
+    },
+    show: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -44,7 +48,8 @@ export default {
 </script>
 
 <style lang="scss">
-  .player-record { width: 100%; height: 100%; color: $color-normal; position: relative;
+  .player-record { width: 100%; height: 100%; color: $color-normal; position: relative;  transition: opacity 300ms linear; opacity: 0;
+    &.show { opacity: 1; }
     .pole { position: absolute; top: 0; left: calc(50% - 12px); width: 50%; transform-origin: 4vw 4vw; transition: transform linear 300ms; z-index: 200;
       &.rotate { transform: rotate(-30deg) }
     }

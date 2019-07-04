@@ -19,9 +19,10 @@
         <span><v-icon name='share-alt' :scale="1"></v-icon></span>
       </div>
 
-      <div class="play-body">
-        <record v-if="currentSong" :isPlay='isPlay' :picUrl='currentSong.album.blurPicUrl' />
-        <record v-else :isPlay='isPlay' />
+      <div @click="() => showLyric = !showLyric" class="play-body">
+        <record v-if="currentSong" :isPlay='isPlay' :picUrl='currentSong.album.blurPicUrl' :show='!showLyric' />
+        <record v-else :isPlay='isPlay' :show='!showLyric' />
+        <lyric :show='showLyric' />
       </div>
 
       <div class="player-control">
@@ -48,7 +49,11 @@
         </div>
         
         <ul class="handle-ctrl">
-          <li><v-icon name='random' :scale="1.3"></v-icon></li>
+          <template>
+            <li v-if='listStatus === 0' @click="changeStatus"><v-icon name='exchange-alt' :scale="1.3"></v-icon></li>
+            <li v-if='listStatus === 1' @click="changeStatus"><v-icon name='random' :scale="1.3"></v-icon></li>
+            <li v-if='listStatus === 2' @click="changeStatus"><v-icon name='sync-alt' :scale="1.3"></v-icon></li>
+          </template>
           <li @click="cut('prev')"><v-icon name='step-backward' :scale="1.3"></v-icon></li>
           <li v-if="!isPlay" @click="play"><v-icon name='regular/play-circle' :scale="2.8"></v-icon></li>
           <li v-else @click="pause"><v-icon name='regular/stop-circle' :scale="2.8"></v-icon></li>
@@ -64,6 +69,7 @@
 import { mapState, mapGetters } from 'vuex'
 import { formatTime } from '../../filters/format-time'
 import record from './components/record'
+import lyric from './components/lyric'
 
 const StackBlur = require('stackblur-canvas')
 export default {
@@ -75,7 +81,9 @@ export default {
       moveX: 0,
       playDur: 0,
       tranType: 'none',
-      lineCompleteWidth: 0
+      lineCompleteWidth: 0,
+      listStatus: 0,
+      showLyric: false
     }
   },
 
@@ -159,6 +167,13 @@ export default {
         this.play()
         this.loadBg()
       }, 500)
+    },
+
+    changeStatus() {
+      this.listStatus++
+      if (this.listStatus === 3) {
+        this.listStatus = 0
+      }
     }
   },
 
@@ -207,7 +222,8 @@ export default {
   },
 
   components: {
-    record
+    record,
+    lyric
   },
 
   filters: {
