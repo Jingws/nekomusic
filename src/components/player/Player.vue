@@ -152,7 +152,7 @@ export default {
     },
 
     next() {
-      this.$player.next()
+      this.$player.cut('next')
       this.reset()
       setTimeout(() => {
         this.totalTime = this.myAudio.duration
@@ -179,7 +179,7 @@ export default {
             _this.loadBg()
             setTimeout(() => {
               _this.totalTime = _this.myAudio.duration
-              _this.play()
+              _this.cut('next')
             }, 500)
           }
         }, 300)

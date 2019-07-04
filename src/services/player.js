@@ -10,13 +10,17 @@ export const Player = {
     store.dispatch('startPlayer', {id, index})
   },
 
-  next() {
+  cut(type) {
     const currentSong = store.state.songList.find(i => {
       return i.id === store.state.player.id
     })
     const item = store.state.songList.indexOf(currentSong)
-
-    const nextItem = Number(item + 1)
+    let nextItem
+    if (type === 'next') {
+      nextItem = Number(item + 1)
+    } else if (type === 'prev') {
+      nextItem = Number(item - 1)
+    }
     const nextId = Number(store.state.songList[nextItem].id)
     this.start(nextId, nextItem)
   },
