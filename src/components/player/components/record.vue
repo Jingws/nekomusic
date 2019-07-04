@@ -1,5 +1,5 @@
 <template>
-  <div class="player-record" :class="{'show' : show}">
+  <div class="player-record" :class="{'show' : show}" @click="hide">
     <div class="pole" :class="{'rotate' : !isPlay}">
       <img src="@/assets/img/pole.png" width="50%" alt="">
     </div>
@@ -43,12 +43,18 @@ export default {
 
   mounted() {
     this.clientWidth = document.documentElement.clientWidth
+  },
+
+  methods: {
+    hide() {
+      console.log(1)
+    }
   }
 }
 </script>
 
 <style lang="scss">
-  .player-record { width: 100%; height: 100%; color: $color-normal; position: relative;  transition: opacity 300ms linear; opacity: 0;
+  .player-record { width: 100%; height: 128.5vw; color: $color-normal; position: absolute;  transition: opacity 300ms linear; opacity: 0;
     &.show { opacity: 1; }
     .pole { position: absolute; top: 0; left: calc(50% - 12px); width: 50%; transform-origin: 4vw 4vw; transition: transform linear 300ms; z-index: 200;
       &.rotate { transform: rotate(-30deg) }

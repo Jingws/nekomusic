@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .lyric-record { width: 100%; height: 100%; color: $color-normal; position: relative; transition: opacity 300ms linear; opacity: 0;
+  .lyric-record { width: 100%; height: 128.5vw; color: $color-normal; position: absolute; transition: opacity 300ms linear; opacity: 0;
     &.show { opacity: 1; }
   }
 </style>
