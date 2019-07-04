@@ -175,11 +175,11 @@ export default {
           // 结束时候
           _this.myAudio.onended = (e) => {
             _this.reset()
-            _this.$player.next()
+            _this.$player.cut('next')
             _this.loadBg()
             setTimeout(() => {
               _this.totalTime = _this.myAudio.duration
-              _this.cut('next')
+              _this.play()
             }, 500)
           }
         }, 300)
