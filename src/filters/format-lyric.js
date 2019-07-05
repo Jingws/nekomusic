@@ -1,6 +1,9 @@
 export function splitTime (value) {
   if (value) {
-    return value.match(/\[.*\]/)[0].replace(/\[|]/g,'')
+    let time = value.match(/\[.*\]/)[0].replace(/\[|]/g,'')
+    let min = Number(time.split(':')[0] * 60)
+    let sec = Number(time.split(':')[1])
+    return min + sec
   } else {
     return value
   }
