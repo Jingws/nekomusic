@@ -7,3 +7,5 @@ export const rcmdMusicList = serverRoot + '/rcmd/music-list'
 export const playListInfo = serverRoot + '/play-list-info'
 
 export const playListDetail = serverRoot + '/play-list-detail'
+
+export const songLyric = serverRoot + '/song-lyric'

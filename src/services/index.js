@@ -28,3 +28,10 @@ export const playListDetailApi = {
     return HttpService.post(url.playListDetail, opt)
   }
 }
+
+// 歌词
+export const songLyricApi = {
+  get(opt = {}) {
+    return HttpService.post(url.songLyric, opt)
+  }
+}
