@@ -22,7 +22,7 @@
       <div @click="() => showLyric = !showLyric" class="play-body">
         <record v-if="currentSong" :isPlay='isPlay' :picUrl='currentSong.album.blurPicUrl' :show='!showLyric' />
         <record v-else :isPlay='isPlay' :show='!showLyric' />
-        <lyric :show='showLyric' />
+        <lyric :show='showLyric' :lyric='lyric' />
       </div>
 
       <div class="player-control">
@@ -70,6 +70,7 @@ import { mapState, mapGetters } from 'vuex'
 import { formatTime } from '../../filters/format-time'
 import record from './components/record'
 import lyric from './components/lyric'
+import { songLyricApi } from '@/services/index'
 
 const StackBlur = require('stackblur-canvas')
 export default {
@@ -83,7 +84,8 @@ export default {
       tranType: 'none',
       lineCompleteWidth: 0,
       listStatus: 0,
-      showLyric: false
+      showLyric: false,
+      lyric: ''
     }
   },
 
@@ -151,6 +153,15 @@ export default {
       }
     },
 
+    loadLyric() {
+      songLyricApi.get({
+        id: this.player.id
+      }).then(res => {
+        const r = res.data
+        this.lyric = r.lyric
+      })
+    },
+
     reset() {
       this.isPlay = false
       this.tranType = 'none'
@@ -166,6 +177,7 @@ export default {
         this.totalTime = this.myAudio.duration
         this.play()
         this.loadBg()
+        this.loadLyric()
       }, 500)
     },
 
@@ -185,6 +197,7 @@ export default {
         setTimeout(() => {
           if (_this.player.id) {
             _this.loadBg()
+            _this.loadLyric()
           }
           _this.totalTime = _this.myAudio.duration
           // 结束时候
@@ -192,6 +205,7 @@ export default {
             _this.reset()
             _this.$player.cut('next')
             _this.loadBg()
+            _this.loadLyric()
             setTimeout(() => {
               _this.totalTime = _this.myAudio.duration
               _this.play()

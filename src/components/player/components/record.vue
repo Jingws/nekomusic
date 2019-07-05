@@ -1,5 +1,5 @@
 <template>
-  <div class="player-record" :class="{'show' : show}" @click="hide">
+  <div class="player-record" :class="{'show' : show}">
     <div class="pole" :class="{'rotate' : !isPlay}">
       <img src="@/assets/img/pole.png" width="50%" alt="">
     </div>
@@ -43,12 +43,6 @@ export default {
 
   mounted() {
     this.clientWidth = document.documentElement.clientWidth
-  },
-
-  methods: {
-    hide() {
-      console.log(1)
-    }
   }
 }
 </script>
