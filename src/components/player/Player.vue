@@ -22,7 +22,7 @@
       <div @click="() => showLyric = !showLyric" class="play-body">
         <record v-if="currentSong" :isPlay='isPlay' :picUrl='currentSong.album.blurPicUrl' :show='!showLyric' />
         <record v-else :isPlay='isPlay' :show='!showLyric' />
-        <lyric :show='showLyric' :lyric='lyric' />
+        <lyric :show='showLyric' :lyric='lyric' :currentTime='palyTime' />
       </div>
 
       <div class="player-control">
@@ -85,7 +85,7 @@ export default {
       lineCompleteWidth: 0,
       listStatus: 0,
       showLyric: false,
-      lyric: ''
+      lyric: []
     }
   },
 
@@ -158,7 +158,7 @@ export default {
         id: this.player.id
       }).then(res => {
         const r = res.data
-        this.lyric = r.lyric
+        this.lyric = r.lyric.split('\n')
       })
     },
 
