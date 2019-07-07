@@ -33,7 +33,7 @@
           <div class="title">推荐歌单<span>歌单广场</span></div>
           <ul class="list-content">
             <template v-for="(item, index) of remdMusicList.list">
-              <li :key="index" @click="getList(item.link)">
+              <li :key="index" @click="getList(item.link)" v-if="item.type !== '17'">
                 <div>
                   <img :src="item.img" alt="">
                 </div>
