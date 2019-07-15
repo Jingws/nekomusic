@@ -9,16 +9,9 @@ export const bannerApi = {
 }
 
 // 推荐歌单
-export const rcmdmusicListApi = {
+export const recommendApi = {
   get() {
-    return HttpService.get(url.rcmdMusicList)
-  }
-}
-
-// 歌单列表
-export const playListInfoApi = {
-  get(opt ={}) {
-    return HttpService.post(url.playListInfo, opt)
+    return HttpService.get(url.recommend)
   }
 }
 

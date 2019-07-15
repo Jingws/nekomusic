@@ -6,16 +6,16 @@
       <div>
         <div class="author-ctrl">
           <div>
-            <div ref="coverWrap" :style="{height: coverHeight + 'px'}"><img :src="playList.data.cover" width="100%" height="100%" alt=""></div>
+            <div ref="coverWrap" :style="{height: coverHeight + 'px'}"><img :src="playList.data.coverImgUrl" width="100%" height="100%" alt=""></div>
             <div :style="{height: coverHeight + 'px'}">
-              <h3>{{playList.data.listTit}}</h3>
+              <h3>{{playList.data.name}}</h3>
               <p class="author">
-                <span><img :src="playList.data.author.img" alt=""></span>
-                {{playList.data.author.name}}
+                <span><img :src="playList.data.creator.avatarUrl" alt=""></span>
+                {{playList.data.creator.nickname}}
                 <v-icon name='angle-right' :scale="1"></v-icon>
               </p>
               <div>
-                <p>{{playList.data.introduce}}</p>
+                <p>{{playList.data.description}}</p>
                 <v-icon name='angle-right' :scale="1"></v-icon>
               </div>
             </div>
@@ -23,10 +23,10 @@
         </div>
         <div class="handle-tab">
           <div>
-            <span><v-icon name='regular/comment-dots' :scale='1.4'></v-icon></span>{{playList.data.comment}}
+            <span><v-icon name='regular/comment-dots' :scale='1.4'></v-icon></span>{{playList.data.commentCount}}
           </div>
           <div>
-            <span><v-icon name='share' :scale='1.4'></v-icon></span>{{playList.data.share}}
+            <span><v-icon name='share' :scale='1.4'></v-icon></span>{{playList.data.shareCount}}
           </div>
           <div>
             <span><v-icon name='arrow-circle-down' :scale='1.4'></v-icon></span>下载
@@ -40,9 +40,9 @@
             <p>
               <v-icon name='regular/play-circle' :scale='1'></v-icon>
               全部播放
-              <span>(共{{playList.data.playList.listCount}}首)</span>
+              <span>(共{{playList.data.trackCount}}首)</span>
             </p>
-            <a href="javascript:;">收藏 ({{playList.data.collect}})</a>
+            <a href="javascript:;">收藏 ({{playList.data.subscribedCount}})</a>
           </div>
           <p v-if="songList.length === 0" class="loadSong">
             <img src="@/assets/img/loading.gif" alt=""><br> 加载中...
@@ -83,7 +83,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll, true)
     this.loadBg()
-    this.loadDetail()
+    this.$store.dispatch('cleanSongList')
   },
 
   destroyed() {
@@ -110,21 +110,11 @@ export default {
       // const img = this.$refs.cover
       let img = new Image()
       img.crossOrigin = ''
-      img.src = this.playList.data.cover
+      img.src = this.playList.data.coverImgUrl
       img.onload = () => {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
         StackBlur.canvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 60)
       }
-    },
-
-    loadDetail() {
-      this.$store.dispatch('cleanSongList')
-      playListDetailApi.get(
-        { id: this.playList.data.playList.id }
-      ).then(res => {
-        const r = res.data
-        this.$store.commit('SET_SONGLIST', r.result.tracks)
-      })
     }
   },
 

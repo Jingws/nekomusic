@@ -124,7 +124,7 @@ const store = new Vuex.Store({
 
     loadEnterFace({dispatch}) {
       dispatch('loadBanner')
-      dispatch('loadRcmdMusicList')
+      dispatch('loadRecommend')
     },
 
     openPlayer({commit, state}) {
@@ -167,37 +167,38 @@ const store = new Vuex.Store({
       api.bannerApi.get().then(res => {
         const r = res.data
         let list = {
-          last_updated: 0
+          last_updated: 0,
+          list: []
         }
+        list.last_updated = new Date().getTime()
         list.list = r.banners
         commit('SET_BANNER', list)
       })
     },
 
-    loadRcmdMusicList({commit, state}) {
+    loadRecommend({commit, state}) {
       if (
         new Date().getTime() - state.remdMusicList.last_updated < 10 * 60 * 1000
       ) {
         return
       }
-
-      api.rcmdmusicListApi.get().then(res => {
+      api.recommendApi.get().then(res => {
         const r = res.data
         let data = {
           last_updated: 0,
           list: []
         }
-        if (r.code === 0) {
+        if (r.code === 200) {
           data.last_updated = new Date().getTime()
-          data.list = r.data
+          data.list = r.result
         }
         commit('SET_RCMDMUSICLIST', data)
       })
     },
 
     loadPlayList({commit, state}, id) {
-      api.playListInfoApi.get(
-        {link: id}
+      api.playListDetailApi.get(
+        {id: id}
       )
         .then(res => {
           const r = res.data
@@ -205,8 +206,11 @@ const store = new Vuex.Store({
             show: true,
             data: {}
           }
-          data.data = r.data
+          data.data = r.result
           commit('SET_PLAYLIST', data)
+          setTimeout(() => {
+            commit('SET_SONGLIST', r.result.tracks)
+          }, 500)
         })
     },
 

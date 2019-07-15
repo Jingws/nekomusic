@@ -2,10 +2,8 @@ const serverRoot = 'http://127.0.0.1:3000'
 
 export const banner = serverRoot + '/banner'
 
-export const rcmdMusicList = serverRoot + '/rcmd/music-list'
+export const recommend = serverRoot + '/recommend-playlist'
 
-export const playListInfo = serverRoot + '/play-list-info'
-
-export const playListDetail = serverRoot + '/play-list-detail'
+export const playListDetail = serverRoot + '/playlist-detail'
 
 export const songLyric = serverRoot + '/song-lyric'

@@ -33,14 +33,14 @@
           <div class="title">推荐歌单<span>歌单广场</span></div>
           <ul class="list-content">
             <template v-for="(item, index) of remdMusicList.list">
-              <li :key="index" @click="getList(item.link)" v-if="item.type !== '17'">
+              <li :key="index" @click="getList(item.id)">
                 <div>
-                  <img :src="item.img" alt="">
+                  <img :src="item.picUrl" alt="">
                 </div>
-                <p>{{item.text}}</p>
+                <p>{{item.name}}</p>
                 <span>
                   <v-icon name='caret-right' scale='1'></v-icon>
-                  {{item.amount}}</span>
+                  {{item.playCount | addUnit}}</span>
               </li>
             </template>
           </ul>
@@ -62,6 +62,7 @@ import { mapState, mapGetters } from 'vuex'
 import searchContent from '@/components/search-content.vue'
 import pullRefresh from '@/components/pull-refresh.vue'
 import swipe from '@/components/swipe.vue'
+import { addUnit } from '@/filters/format-amount'
 import dailyCommend from './components/dailyCommend.vue'
 import songList from './components/songList.vue'
 import poll from './components/poll.vue'
@@ -131,6 +132,10 @@ export default {
     poll,
     radio,
     playList
+  },
+
+  filters: {
+    addUnit
   }
 }
 </script>
