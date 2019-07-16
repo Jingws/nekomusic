@@ -30,7 +30,7 @@
           <li><v-icon name='regular/heart' :scale="1.3"></v-icon></li>
           <li><v-icon name='arrow-circle-down' :scale="1.3"></v-icon></li>
           <li><v-icon name='cat' :scale="1.3"></v-icon></li>
-          <li><v-icon name='regular/comment-dots' :scale="1.3"></v-icon></li>
+          <li @click="() => showComment = true"><v-icon name='regular/comment-dots' :scale="1.3"></v-icon></li>
           <li><v-icon name='ellipsis-v' :scale="1.3"></v-icon></li>
         </ul>
 
@@ -62,6 +62,8 @@
         </ul>
       </div>
     </div>
+
+    <comment :show='showComment' @offComment='() => showComment = false' />
   </van-popup>
 </template>
 
@@ -70,7 +72,8 @@ import { mapState, mapGetters } from 'vuex'
 import { formatTime } from '../../filters/format-time'
 import record from './components/record'
 import lyric from './components/lyric'
-import { songLyricApi } from '@/services/index'
+import comment from './components/comment'
+import { songLyricApi, commentMusicApi } from '@/services/index'
 
 const StackBlur = require('stackblur-canvas')
 export default {
@@ -85,7 +88,8 @@ export default {
       lineCompleteWidth: 0,
       listStatus: 0,
       showLyric: false,
-      lyric: []
+      lyric: [],
+      showComment: false
     }
   },
 
@@ -237,7 +241,8 @@ export default {
 
   components: {
     record,
-    lyric
+    lyric,
+    comment
   },
 
   filters: {
