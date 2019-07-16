@@ -7,3 +7,5 @@ export const recommend = serverRoot + '/recommend-playlist'
 export const playListDetail = serverRoot + '/playlist-detail'
 
 export const songLyric = serverRoot + '/song-lyric'
+
+export const commentMusic = serverRoot + '/comment-music'

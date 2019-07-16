@@ -28,3 +28,10 @@ export const songLyricApi = {
     return HttpService.post(url.songLyric, opt)
   }
 }
+
+// 评论 歌曲
+export const commentMusicApi = {
+  get(opt = {}) {
+    return HttpService.post(url.commentMusic, opt)
+  }
+}
