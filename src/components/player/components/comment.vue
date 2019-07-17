@@ -2,7 +2,8 @@
   <van-popup v-model="show" position='bottom' class="comment-wrap" :overlay='false'>
     <div class="player-comment-title layout-display">
       <span @click="off()" class="layout-display"><v-icon name='angle-left' :scale="1.3"></v-icon></span>
-      <p>评论</p>
+      <p v-if="commentList.total === null">评论</p>
+      <p v-else>评论 ({{commentList.total}})</p>
       <span class="layout-display"><v-icon name='align-left' :scale="1"></v-icon></span>
     </div>
 
@@ -80,7 +81,8 @@ export default {
         hotComments: [],
         page: 0,
         loading: false,
-        finished: false
+        finished: false,
+        total: null
       }
     }
   },
@@ -100,6 +102,7 @@ export default {
         if (r.total <= this.commentList.page * 20) {
           this.commentList.finished = true
         }
+        this.commentList.total = r.total
         this.commentList.page += 1
         if (r.hotComments) {
           this.commentList.hotComments = r.hotComments
@@ -116,6 +119,7 @@ export default {
       this.commentList.page = 0
       this.commentList.comments = []
       this.commentList.hotComments = []
+      this.commentList.total = null
     }
   },
 
