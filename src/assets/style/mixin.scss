@@ -9,6 +9,9 @@
   .van-swipe__indicator--active { background-color: $color-def!important }
 
   .tabs>li>span { background: $color-linear-def }
+  
+  // 评论
+  .player-comment-title { background: $color-normal; color: $color-def }
 }
 
 // 经典红
@@ -21,6 +24,9 @@
   .van-swipe__indicator--active { background-color: $color-danger!important }
 
   .tabs>li>span { background: $color-linear-danger }
+
+  // 评论
+  .player-comment-title { background: $color-bg-danger; color: $color-normal }
 
   .search-wrap {
     .search-var { background: $color-bg-danger; color: $color-normal;
