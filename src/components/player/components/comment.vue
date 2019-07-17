@@ -20,7 +20,7 @@
         <van-list v-model="commentList.loading" :finished="commentList.finished" @load="onRecordsLoad" :immediate-check="false">
           <template v-if="commentList.hotComments.length > 0">
             <li class="comment-tit">精彩评论</li>
-            <li class="comment-item" v-for="(item, index) of commentList.hotComments" :key="index">
+            <li class="comment-item" v-for="item in commentList.hotComments" :key="item.time">
               <div class="layout-column">
                 <div class="user">
                   <div><img :src="item.user.avatarUrl" alt="" width="100%" height="100%"></div>
