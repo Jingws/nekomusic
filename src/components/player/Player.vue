@@ -39,7 +39,7 @@
         <div class="progress-bar">
           <span class="time-ctrl layout-display">{{palyTime | formatTime}}</span>
           <div class="progress-ctrl">
-            <span ref="dot" @touchstart='dotTouchStart($event)' @touchmove='dotTouchMove($event)' class="dot layout-display" :style="{left : moveX, transitionDuration : playDur, transitionProperty: tranType}">
+            <span ref="dot" @touchstart='dotTouchStart($event)' @touchmove='dotTouchMove($event)' @touchend="dotTouchEnd($event)" class="dot layout-display" :style="{left : moveX}">
               <v-icon name='circle' :scale='.6'></v-icon>
             </span>
             <p ref="lineBase" class="line line-base"></p>
@@ -89,7 +89,8 @@ export default {
       listStatus: 0,
       showLyric: false,
       lyric: [],
-      showComment: false
+      showComment: false,
+      isMove: false
     }
   },
 
@@ -102,9 +103,9 @@ export default {
     play() {
       this.isPlay = true
       this.myAudio.play()
-      this.playDur = this.totalTime - this.myAudio.currentTime + 's'
-      this.tranType = 'left'
-      this.moveX = this.$refs.lineBase.getBoundingClientRect().width - 10 + 'px'
+      // this.playDur = this.totalTime - this.myAudio.currentTime + 's'
+      // this.tranType = 'left'
+      // this.moveX = this.$refs.lineBase.getBoundingClientRect().width - 10 + 'px'
       this.setPlayTime()
     },
 
@@ -120,6 +121,9 @@ export default {
     setPlayTime() {
       this.myAudio.ontimeupdate = (e) => {
         this.palyTime = this.myAudio.currentTime
+        if (!this.isMove) {
+          this.moveX = (this.palyTime / this.myAudio.duration) * 100 + '%'
+        }
         this.lineCompleteWidth = this.$refs.dot.getBoundingClientRect().x - this.$refs.lineBase.getBoundingClientRect().x + 5
       }
     },
@@ -129,6 +133,7 @@ export default {
     },
 
     dotTouchMove(e) {
+      this.isMove = true
       const distance = e.targetTouches[0].pageX - this.$refs.lineBase.getBoundingClientRect().x
       const lineWidth = this.$refs.lineBase.getBoundingClientRect().width - 5
       this.moveX = distance + 'px'
@@ -139,6 +144,10 @@ export default {
         this.moveX = lineWidth - 5 + 'px'
       }
       this.lineCompleteWidth = this.$refs.dot.getBoundingClientRect().x - this.$refs.lineBase.getBoundingClientRect().x + 5
+    },
+
+    dotTouchEnd(e) {
+      this.isMove = false
     },
 
     loadBg() {
@@ -217,8 +226,6 @@ export default {
           }
         }, 0)
       } else {
-        // _this.playDur = 0
-        // _this.moveX = _this.$refs.dot.getBoundingClientRect().x - _this.$refs.lineBase.getBoundingClientRect().x + 5
       }
     }
   },
