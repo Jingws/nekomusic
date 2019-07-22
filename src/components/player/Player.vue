@@ -152,6 +152,7 @@ export default {
       const st = Number(this.moveX.substring(0, this.moveX.length - 2))
       this.moveX = (st / this.$refs.lineBase.getBoundingClientRect().width) * 98 + '%'
       this.myAudio.currentTime = this.myAudio.duration * (st / this.$refs.lineBase.getBoundingClientRect().width)
+      this.play()
     },
 
     loadBg() {
