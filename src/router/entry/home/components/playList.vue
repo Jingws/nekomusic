@@ -37,7 +37,7 @@
         </div>
         <div ref="listWrap" class="music-list" :class="{'lock-content' : lock}">
           <div class="music-list-tit" :class="{'lock-tit' : lock}">
-            <p>
+            <p @click="() => $player.start(songList[0].id, 0)">
               <v-icon name='regular/play-circle' :scale='1'></v-icon>
               全部播放
               <span>(共{{playList.data.trackCount}}首)</span>
