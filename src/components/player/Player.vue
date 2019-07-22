@@ -1,5 +1,7 @@
 <template>
   <van-popup v-model="player.state" position='right' class="play-wrap" :overlay='false'>
+    <div class="shadow shadow-top"></div>
+    <div class="shadow shadow-bottom"></div>
     <canvas ref="canvas" id="canvas"></canvas>
     <div class="player-content" :class="{'nobg' : player.id}">
       <div class="title">
@@ -265,7 +267,12 @@ export default {
 </script>
 
 <style lang="scss">
-  .play-wrap { position: fixed; width: 100%; height: 100%; background: $color-normal; overflow: hidden; }
+  .play-wrap { position: fixed; width: 100%; height: 100%; background: $color-normal; overflow: hidden;
+    .shadow { position: absolute; width: 100%; height: 15%; left: 0;
+      &.shadow-top { top: 0; background-image: linear-gradient(rgba(0, 0, 0, .4), transparent); }
+      &.shadow-bottom { bottom: 0; background-image: linear-gradient(transparent, rgba(0, 0, 0, .4) ) }
+    }
+  }
   .player-content { width: 100%; height: 100%; background: url('../../assets/img/bg_player.jpg')no-repeat; background-position: 50%; background-size: cover; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: fixed; width: 100%; height: 100%; top: 0; left: 0;
     &.nobg { width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: fixed; width: 100%; height: 100%; top: 0; left: 0; }
     >.title { width: 100%; padding: 4%; color: $color-normal; display: flex; justify-content: space-between; align-items: center;
