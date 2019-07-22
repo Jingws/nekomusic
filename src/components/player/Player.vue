@@ -199,11 +199,11 @@ export default {
       let _this = this
       if (v === true) {
         setTimeout(() => {
-          if (_this.player.id) {
+          _this.myAudio.oncanplay = function() {
             _this.loadBg()
             _this.loadLyric()
+            _this.totalTime = _this.myAudio.duration
           }
-          _this.totalTime = _this.myAudio.duration
           // 结束时候
           _this.myAudio.onended = (e) => {
             _this.reset()
@@ -213,9 +213,9 @@ export default {
             setTimeout(() => {
               _this.totalTime = _this.myAudio.duration
               _this.play()
-            }, 500)
+            }, 0)
           }
-        }, 300)
+        }, 0)
       } else {
         // _this.playDur = 0
         // _this.moveX = _this.$refs.dot.getBoundingClientRect().x - _this.$refs.lineBase.getBoundingClientRect().x + 5
