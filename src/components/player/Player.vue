@@ -269,8 +269,8 @@ export default {
 <style lang="scss">
   .play-wrap { position: fixed; width: 100%; height: 100%; background: $color-normal; overflow: hidden;
     .shadow { position: absolute; width: 100%; height: 15%; left: 0;
-      &.shadow-top { top: 0; background-image: linear-gradient(rgba(0, 0, 0, .4), transparent); }
-      &.shadow-bottom { bottom: 0; background-image: linear-gradient(transparent, rgba(0, 0, 0, .4) ) }
+      &.shadow-top { top: 0; background-image: linear-gradient(rgba(0, 0, 0, .2), transparent); }
+      &.shadow-bottom { bottom: 0; background-image: linear-gradient(transparent, rgba(0, 0, 0, .5) ) }
     }
   }
   .player-content { width: 100%; height: 100%; background: url('../../assets/img/bg_player.jpg')no-repeat; background-position: 50%; background-size: cover; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: fixed; width: 100%; height: 100%; top: 0; left: 0;
