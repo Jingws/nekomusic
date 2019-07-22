@@ -101,6 +101,7 @@ export default {
   methods: {
     // 播放
     play() {
+      console.log(this.myAudio.volume)
       this.isPlay = true
       this.myAudio.play()
       // this.playDur = this.totalTime - this.myAudio.currentTime + 's'
@@ -122,14 +123,14 @@ export default {
       this.myAudio.ontimeupdate = (e) => {
         this.palyTime = this.myAudio.currentTime
         if (!this.isMove) {
-          this.moveX = (this.palyTime / this.myAudio.duration) * 100 + '%'
+          this.moveX = (this.palyTime / this.myAudio.duration) * 98 + '%'
         }
         this.lineCompleteWidth = this.$refs.dot.getBoundingClientRect().x - this.$refs.lineBase.getBoundingClientRect().x + 5
       }
     },
 
     dotTouchStart(e) {
-      console.log(this.$refs.lineBase.getBoundingClientRect())
+      // console.log(this.$refs.lineBase.getBoundingClientRect())
     },
 
     dotTouchMove(e) {
@@ -148,6 +149,9 @@ export default {
 
     dotTouchEnd(e) {
       this.isMove = false
+      const st = Number(this.moveX.substring(0, this.moveX.length - 2))
+      this.moveX = (st / this.$refs.lineBase.getBoundingClientRect().width) * 98 + '%'
+      this.myAudio.currentTime = this.myAudio.duration * (st / this.$refs.lineBase.getBoundingClientRect().width)
     },
 
     loadBg() {
