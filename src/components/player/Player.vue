@@ -289,7 +289,7 @@ export default {
     }
   }
   .play-body { flex: 1; width: 100% }
-  .player-control { width: 100%; padding: 4%;
+  .player-control { width: 100%; padding: 4%; z-index: 200;
     >.handle-ctrl { width: 100%; display: flex; justify-content: space-around; align-items: center;
       >li { width: 20%; text-align: center; color: rgba(255, 255, 255, 0.8) }
     }
