@@ -2,7 +2,7 @@
   <div class="popup-title-wrap layout-display" :class="ui">
     <span @click="off()" class="layout-display"><v-icon name='angle-left' :scale="1.3"></v-icon></span>
     <p>{{title}}</p>
-    <span class="layout-display"><v-icon name='align-left' :scale="1"></v-icon></span>
+    <span @click="() => $player.open()" class="layout-display"><v-icon name='align-left' :scale="1"></v-icon></span>
   </div>
 </template>
 
