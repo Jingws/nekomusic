@@ -93,7 +93,7 @@ export default {
   methods: {
     handleScroll() {
       let top = this.$refs.listWrap.getBoundingClientRect().top
-      if (top <= 45) {
+      if (top <= 45.5) {
         this.lock = true
       } else {
         this.lock = false
